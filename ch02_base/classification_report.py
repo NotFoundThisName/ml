@@ -18,8 +18,17 @@ model.fit(x_train,y_train)
 #5.预测
 y_pred = model.predict(x_test)
 
+#计算预测概率值
+ypred_proba = model.predict_proba(x_test)[:,1]
+
 #6. 生成评估报告
 report = classification_report(y_test,y_pred)
 
 #7.输出结果
 print(report)
+
+#计算AUC值
+from sklearn.metrics import roc_auc_score
+auc = roc_auc_score(y_test,ypred_proba)
+
+print(auc)
