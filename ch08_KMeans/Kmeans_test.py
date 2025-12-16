@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.datasets import make_blobs
 
+from sklearn.metrics import silhouette_score,calinski_harabasz_score
+
 plt.rcParams['font.sans-serif'] = ['KaiTi']
 plt.rcParams['axes.unicode_minus'] = False
 
@@ -23,7 +25,7 @@ kmeans.fit(X)
 #获取聚类的簇中心
 print(kmeans.cluster_centers_)
 
-#4.预测，得到每个样本点的簇中心
+#4.预测，得到每个样本点的簇标签
 y_pred = kmeans.predict(X)
 
 
@@ -32,3 +34,9 @@ ax[1].scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1], c="red
 ax[1].set_title("聚类结果")
 ax[1].legend()
 plt.show()
+
+#评价指标
+print("轮廓系数",silhouette_score(X,y_pred))
+print("CH指数",calinski_harabasz_score(X,y_pred))
+print("簇内平方和",kmeans.inertia_)
+
